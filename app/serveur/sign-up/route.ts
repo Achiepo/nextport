@@ -1,0 +1,20 @@
+import { auth, database } from "@/db/firebase"
+import { createUserWithEmailAndPassword } from "firebase/auth"
+import { doc, setDoc } from "firebase/firestore"
+import { NextResponse } from "next/server"
+
+export const POST = async (req: Request) => {
+    const {formData, password, } = await req.json()
+   try {
+    const info = await createUserWithEmailAndPassword(auth,password,formData )
+    const id = info.user.uid
+    const data = {formData, password, createDate: new Date(), id}
+    
+    //Créer un document dont c'est nous meme qui donnons l'id
+    await setDoc(doc(database, "users", id), data)
+    return NextResponse.json({data})
+   } catch (error) {
+    console.log(error)
+    return NextResponse.json("Une erreur s'est produite")
+   }
+}
