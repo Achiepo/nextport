@@ -4,26 +4,30 @@ import { Mail, MapPin, Phone } from "lucide-react";
 import { useState } from "react";
 
 export default function Contact() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
-  
-  // Ajout de l'état pour gérer les messages
+  // Déclaration des états pour chaque champ de formulaire
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
-  const [isError, setIsError] = useState(false); // Gérer si c'est une erreur
+  const [formMessage, setFormMessage] = useState(""); // Pour afficher le message de succès ou d'erreur
+  const [isError, setIsError] = useState(false); 
+  const [isLoading, setLoading] = useState(false); 
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setMessage(""); // Réinitialisation du message avant l'envoi
+    setFormMessage(""); // Réinitialisation du message avant l'envoi
     setIsError(false); // Réinitialisation de l'état d'erreur
+    setLoading(true); // Activer le chargement
 
     try {
+      // Attente simulée de 2 secondes (2000ms) avant d'envoyer la requête
+      await new Promise((resolve) => setTimeout(resolve, 2000)); // Simulation d'un délai de 2 secondes
+
+      // Envoi des données sans utiliser formData
       const req = await fetch("/serveur/sign-up", {
         headers: { "Content-type": "application/json" },
         method: "POST",
-        body: JSON.stringify({ formData }),
+        body: JSON.stringify({ name, email, password, message }), // On envoie directement les champs
       });
 
       const res = await req.json();
@@ -31,24 +35,26 @@ export default function Contact() {
 
       if (res && res.data) {
         console.log(res.data);
-        setMessage("Message envoyé avec succès");
+        setFormMessage("Message envoyé avec succès");
         localStorage.setItem("user", JSON.stringify(res.data));
       } else {
         console.log("Erreur lors de l'envoi du message");
-        setMessage("Une erreur est survenue. Veuillez réessayer.");
+        setFormMessage("Une erreur est survenue. Veuillez réessayer.");
         setIsError(true); // Marquer l'état comme erreur
       }
     } catch (error) {
       console.error("Erreur de connexion");
-      setMessage("Une erreur est survenue. Veuillez réessayer.");
+      setFormMessage("Une erreur est survenue. Veuillez réessayer.");
       setIsError(true); // Marquer l'état comme erreur
+    } finally {
+      setLoading(false); // Désactiver le chargement après l'envoi du message
     }
   };
 
   return (
     <div className="container py-12">
       <div className="mx-auto max-w-4xl">
-        <h1 className="mb-8 text-3xl font-bold">Contact</h1>
+        <h1 className="mb-8 text-3xl font-bold text-center">Contact</h1>
         <div className="grid gap-8 lg:grid-cols-2">
           <div className="space-y-6">
             <div>
@@ -81,10 +87,8 @@ export default function Contact() {
               <input
                 type="text"
                 id="name"
-                value={formData.name}
-                onChange={(e) =>
-                  setFormData({ ...formData, name: e.target.value })
-                }
+                value={name}
+                onChange={(e) => setName(e.target.value)}
                 className="w-full rounded-md border bg-background px-3 py-2"
                 required
               />
@@ -96,37 +100,57 @@ export default function Contact() {
               <input
                 type="email"
                 id="email"
-                value={formData.email}
-                onChange={(e) =>
-                  setFormData({ ...formData, email: e.target.value })
-                }
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 className="w-full rounded-md border bg-background px-3 py-2"
                 required
               />
             </div>
+
+            <div>
+              <label htmlFor="password" className="mb-2 block text-sm font-medium text-foreground">
+                Mot de passe
+              </label>
+              <input
+                type="password"
+                id="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full rounded-md border bg-background px-3 py-2"
+                required
+              />
+            </div>
+
             <div>
               <label htmlFor="message" className="mb-2 block text-sm font-medium text-foreground">
                 Message
               </label>
               <textarea
                 id="message"
-                value={formData.message}
-                onChange={(e) =>
-                  setFormData({ ...formData, message: e.target.value })
-                }
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
                 rows={5}
                 className="w-full rounded-md border bg-background px-3 py-2"
                 required
               />
             </div>
+
             {/* Affichage du message */}
-            {message && (
+            {formMessage && (
               <div
                 className={`mt-4 p-3 text-center text-white rounded-md ${isError ? 'bg-red-500' : 'bg-green-500'}`}
               >
-                {message}
+                {formMessage}
               </div>
             )}
+
+            {/* Affichage du loading */}
+            {isLoading && (
+              <div className="mt-4 p-3 text-center text-blue-500">
+               En cours d'envoie...
+              </div>
+            )}
+
             <button
               type="submit"
               className="rounded-md bg-blue-500 px-4 py-2 text-blue-500-foreground hover:bg-blue-300 disabled:opacity-50 cursor-pointer"

@@ -28,7 +28,7 @@ export default function About() {
     <div className="container py-12">
       <div className="mx-auto max-w-3xl space-y-12">
         <section>
-          <h1 className="mb-4 text-3xl font-bold">À propos de moi</h1>
+          <h1 className="mb-4 text-3xl font-bold text-center">À propos de moi</h1>
           <p className="text-lg text-muted-foreground">
             Je suis Achiepo sachiel yvan,développeur web passionné par la création d'applications
             web modernes et performantes.Je m'efforce de créer des
