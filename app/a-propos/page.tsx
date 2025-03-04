@@ -30,8 +30,8 @@ export default function About() {
         <section>
           <h1 className="mb-4 text-3xl font-bold text-center">À propos de moi</h1>
           <p className="text-lg text-muted-foreground">
-            Je suis Achiepo sachiel yvan,développeur web passionné par la création d'applications
-            web modernes et performantes.Je m'efforce de créer des
+            Je suis Achiepo Sachiel Yvan&apos;s, développeur web passionné par la création d&apos;applications
+            web modernes et performantes. Je m&apos;efforce de créer des
             solutions élégantes et efficaces pour répondre aux besoins des
             utilisateurs.
           </p>

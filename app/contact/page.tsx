@@ -10,8 +10,8 @@ export default function Contact() {
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const [formMessage, setFormMessage] = useState(""); // Pour afficher le message de succès ou d'erreur
-  const [isError, setIsError] = useState(false); 
-  const [isLoading, setLoading] = useState(false); 
+  const [isError, setIsError] = useState(false);
+  const [isLoading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -34,16 +34,14 @@ export default function Contact() {
       console.log(res.data);
 
       if (res && res.data) {
-        console.log(res.data);
         setFormMessage("Message envoyé avec succès");
         localStorage.setItem("user", JSON.stringify(res.data));
       } else {
-        console.log("Erreur lors de l'envoi du message");
         setFormMessage("Une erreur est survenue. Veuillez réessayer.");
         setIsError(true); // Marquer l'état comme erreur
       }
-    } catch (error) {
-      console.error("Erreur de connexion");
+    } catch (err) {
+      console.error("Erreur de connexion", err);
       setFormMessage("Une erreur est survenue. Veuillez réessayer.");
       setIsError(true); // Marquer l'état comme erreur
     } finally {
@@ -60,7 +58,7 @@ export default function Contact() {
             <div>
               <h2 className="mb-4 text-2xl font-semibold">Parlons de votre projet</h2>
               <p className="text-muted-foreground">
-                N'hésitez pas à me contacter pour discuter de vos besoins en
+                N&apos;hésitez pas à me contacter pour discuter de vos besoins en
                 développement web.
               </p>
             </div>
@@ -116,6 +114,7 @@ export default function Contact() {
                 id="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                placeholder="Votre mot de passe doit être au moins 8 caractères"
                 className="w-full rounded-md border bg-background px-3 py-2"
                 required
               />
@@ -138,7 +137,7 @@ export default function Contact() {
             {/* Affichage du message */}
             {formMessage && (
               <div
-                className={`mt-4 p-3 text-center text-white rounded-md ${isError ? 'bg-red-500' : 'bg-green-500'}`}
+                className={`mt-4 p-3 text-center text-white rounded-md ${isError ? "bg-red-500" : "bg-green-500"}`}
               >
                 {formMessage}
               </div>
@@ -147,13 +146,14 @@ export default function Contact() {
             {/* Affichage du loading */}
             {isLoading && (
               <div className="mt-4 p-3 text-center text-blue-500">
-               En cours d'envoie...
+                En cours d&apos;envoi...
               </div>
             )}
 
             <button
               type="submit"
-              className="rounded-md bg-blue-500 px-4 py-2 text-blue-500-foreground hover:bg-blue-300 disabled:opacity-50 cursor-pointer"
+              className="rounded-md bg-blue-500 px-4 py-2 text-white hover:bg-blue-400 disabled:opacity-50"
+              disabled={isLoading} // Désactive le bouton pendant le chargement
             >
               Envoyer
             </button>

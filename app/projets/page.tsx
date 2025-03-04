@@ -33,7 +33,7 @@ export default function Projects() {
     <div className="container py-12 mx-auto">
       <h1 className="mb-8 text-3xl font-bold text-center">Mes Projets</h1>
       <div className="flex justify-center">
-        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3 max-w-screen-lg">
+        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3 max-w-screen-lg sm:m-4">
           {projects.map((project) => (
             <div key={project.title} className="group rounded-lg border bg-card text-card-foreground shadow-sm transition-all hover:shadow-md">
               <div className="relative aspect-video overflow-hidden rounded-t-lg">
