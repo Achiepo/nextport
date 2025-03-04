@@ -12,6 +12,7 @@ export const POST = async (req: Request) => {
     
     //Créer un document dont c'est nous meme qui donnons l'id
     await setDoc(doc(database, "users", id), data)
+    console.log('Utilisateur ajouté à la base de données:', id)
     return NextResponse.json({data})
    } catch (error) {
     console.log(error)

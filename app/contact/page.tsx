@@ -42,7 +42,7 @@ export default function Contact() {
       }
     } catch (err) {
       console.error("Erreur de connexion", err);
-      setFormMessage("Une erreur est survenue. Veuillez réessayer.");
+      setFormMessage("Une erreur est survenue. Veuillez réessayer ou vous avez deja envoyer un message.");
       setIsError(true); // Marquer l'état comme erreur
     } finally {
       setLoading(false); // Désactiver le chargement après l'envoi du message
@@ -153,7 +153,7 @@ export default function Contact() {
             <button
               type="submit"
               className="rounded-md bg-blue-500 px-4 py-2 text-white hover:bg-blue-400 disabled:opacity-50"
-              disabled={isLoading} // Désactive le bouton pendant le chargement
+              disabled={isLoading} 
             >
               Envoyer
             </button>
