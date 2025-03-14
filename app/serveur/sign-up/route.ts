@@ -15,11 +15,7 @@ export const POST = async (req: Request) => {
     console.log('Utilisateur ajouté à la base de données:', id)
     return NextResponse.json({data})
    } catch (error) {
-    console.log("Erreur Firebase:", error);
-    return NextResponse.json({
-        error: "Une erreur s'est produite",
-        message: message || "Aucune description de l'erreur disponible",
-        code: "Code d'erreur inconnu"
-    }, { status: 500 });
+    console.log(error)
+    return NextResponse.json("Une erreur s'est produite")
    }
 }
