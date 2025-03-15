@@ -31,8 +31,8 @@ export const POST = async (req: Request) => {
     } catch (error: unknown) {
         // Gestion stricte du type d'erreur
         if (error instanceof Error) {
-            console.log("Erreur Firebase:", error.message);  // Utilisation de message
-            console.log("Code de l'erreur:", error.name);  // ou "name" si tu veux le type d'erreur
+            console.log("Erreur Firebase:", error);  // Utilisation de message
+            console.log("Code de l'erreur:", error);  // ou "name" si tu veux le type d'erreur
             return NextResponse.json({ error: "Une erreur s'est produite", details: error.message });
         } else {
             // Si l'erreur n'est pas une instance d'Error
