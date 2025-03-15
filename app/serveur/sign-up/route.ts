@@ -15,7 +15,7 @@ export const POST = async (req: Request) => {
     console.log('Utilisateur ajouté à la base de données:', id)
     return NextResponse.json({data})
    } catch (error) {
-    console.log(error)
+    console.log()
     return NextResponse.json("Une erreur s'est produite")
    }
 }
