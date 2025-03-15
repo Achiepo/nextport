@@ -11,8 +11,8 @@ export const POST = async (req: Request) => {
         return NextResponse.json({ error: "Email invalide" });
     }
 
-    if (!password || password.length < 6) {
-        return NextResponse.json({ error: "Le mot de passe doit comporter au moins 6 caractères" });
+    if (!password || password.length < 8) {
+        return NextResponse.json({ error: "Le mot de passe doit comporter au moins 8 caractères" });
     }
 
     try {
@@ -28,9 +28,16 @@ export const POST = async (req: Request) => {
 
         console.log('Utilisateur ajouté à la base de données:', id);
         return NextResponse.json({ message: "Utilisateur créé avec succès" });
-    } catch (error) {
-        console.log("Erreur Firebase:", (error as any).e);
-        console.log("Code de l'erreur:",(error as any).code);
-        return NextResponse.json({ error: "Une erreur s'est produite", details: message });
+    } catch (error: unknown) {
+        // Gestion stricte du type d'erreur
+        if (error instanceof Error) {
+            console.log("Erreur Firebase:", error.message);  // Utilisation de message
+            console.log("Code de l'erreur:", error.name);  // ou "name" si tu veux le type d'erreur
+            return NextResponse.json({ error: "Une erreur s'est produite", details: error.message });
+        } else {
+            // Si l'erreur n'est pas une instance d'Error
+            console.log("Erreur inconnue");
+            return NextResponse.json({ error: "Une erreur s'est produite", details: "Erreur inconnue" });
+        }
     }
 };
