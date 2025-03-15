@@ -69,7 +69,7 @@ export default function Projects() {
                     rel="noopener noreferrer"
                     className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground"
                   >
-                    <ExternalLink className="mr-2 h-4 w-4" />
+                    <ExternalLink className="mr-2 h-4 w-4 text-blue-900" />
                     Démo live
                   </a>
                 </div>

@@ -28,9 +28,16 @@ export const POST = async (req: Request) => {
 
         console.log('Utilisateur ajouté à la base de données:', id);
         return NextResponse.json({ message: "Utilisateur créé avec succès" });
-    } catch (error) {
-        console.log("Erreur Firebase:");
-        console.log("Code de l'erreur:");
-        return NextResponse.json({ error: "Une erreur s'est produite", details: message });
+    } catch (error: unknown) {
+        // Gestion stricte du type d'erreur
+        if (error instanceof Error) {
+            console.log("Erreur Firebase:", error.message);  // Utilisation de message
+            console.log("Code de l'erreur:", error.name);  // ou "name" si tu veux le type d'erreur
+            return NextResponse.json({ error: "Une erreur s'est produite", details: error.message });
+        } else {
+            // Si l'erreur n'est pas une instance d'Error
+            console.log("Erreur inconnue");
+            return NextResponse.json({ error: "Une erreur s'est produite", details: "Erreur inconnue" });
+        }
     }
 };

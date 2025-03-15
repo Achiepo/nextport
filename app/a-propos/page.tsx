@@ -9,12 +9,12 @@ const skills = [
   {
     category: "Back-end",
     icon: Database,
-    items: ["Node.js", "Express", "MongoDB"],
+    items: ["Node.js", "Express", "MongoDB","Firebase","SQL"],
   },
   {
     category: "Languages",
     icon: Code2,
-    items: ["JavaScript", "TypeScript"],
+    items: ["JavaScript", "TypeScript","html","css"],
   },
   {
     category: "Autres",
@@ -55,8 +55,7 @@ export default function About() {
                     {skill.items.map((item) => (
                       <li
                         key={item}
-                        className="flex items-center text-muted-foreground"
-                      >
+                        className="flex items-center text-muted-foreground">
                         {item}
                       </li>
                     ))}

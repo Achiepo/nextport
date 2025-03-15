@@ -37,7 +37,7 @@ export default function Contact() {
         setFormMessage("Message envoyé avec succès");
         localStorage.setItem("user", JSON.stringify(res.data));
       } else {
-        setFormMessage("Une erreur est survenue. Veuillez réessayer.");
+        setFormMessage("Une erreur est survenue. Veuillez réessayer.(vous avez déja envoyer de message)");
         setIsError(true); // Marquer l'état comme erreur
       }
     } catch (err) {

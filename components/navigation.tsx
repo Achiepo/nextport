@@ -26,9 +26,8 @@ export function Navigation() {
         {/* Menu Hamburger (visible en mode mobile) */}
         <button
           onClick={toggleMenu}
-          className="block lg:hidden text-2xl"
-          aria-label="Toggle menu"
-        >
+          className="block lg:hidden text-2xl bg-blue-200"
+          aria-label="Toggle menu">
           &#9776; {/* Symbole hamburger */}
         </button>
 
@@ -80,13 +79,13 @@ export function Navigation() {
                 <Link
                   href={link.href}
                   className={cn(
-                    "text-sm font-medium transition-colors hover:text-primary",
+                    "text-sm font-medium transition-colors hover:text-blue-500",
                     pathname === link.href
                       ? "text-foreground"
                       : "text-foreground/60"
                   )}
                   onClick={() => setIsMenuOpen(false)} // Fermer le menu après un clic
-                >
+                  >
                   {link.label}
                 </Link>
               </li>
