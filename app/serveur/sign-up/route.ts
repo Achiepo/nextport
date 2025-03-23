@@ -14,8 +14,8 @@ export const POST = async (req: Request) => {
     await setDoc(doc(database, "users", id), data)
     console.log('Utilisateur ajouté à la base de données:', id)
     return NextResponse.json({data})
-   } catch (error) {
-    console.error(error)
+   } catch (error: unknown) {
+    console.error("une erreur est survenue",error)
     return NextResponse.json("Une erreur s'est produite")
    }
 }
