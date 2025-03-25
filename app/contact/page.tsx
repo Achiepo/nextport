@@ -21,13 +21,13 @@ export default function Contact() {
 
     try {
       // Attente simulée de 2 secondes (2000ms) avant d'envoyer la requête
-      await new Promise((resolve) => setTimeout(resolve, 2000)); // Simulation d'un délai de 2 secondes
+      await new Promise((resolve) => setTimeout(resolve, 2000)); 
 
       // Envoi des données sans utiliser formData
       const req = await fetch("/serveur/sign-up", {
         headers: { "Content-type": "application/json" },
         method: "POST",
-        body: JSON.stringify({ name, email, password, message }), // On envoie directement les champs
+        body: JSON.stringify({ name, email, password, message }), 
       });
 
       const res = await req.json();
@@ -37,7 +37,7 @@ export default function Contact() {
         setFormMessage("Message envoyé avec succès");
         localStorage.setItem("user", JSON.stringify(res.data));
       } else {
-        setFormMessage("Une erreur est survenue. Veuillez réessayer.(vous avez déja envoyer de message)");
+        setFormMessage("Une erreur est survenue.");
         setIsError(true); // Marquer l'état comme erreur
       }
     } catch (err) {
@@ -45,7 +45,7 @@ export default function Contact() {
       setFormMessage("Une erreur est survenue.");
       setIsError(true); // Marquer l'état comme erreur
     } finally {
-      setLoading(false); // Désactiver le chargement après l'envoi du message
+      setLoading(false)
     }
   };
 
